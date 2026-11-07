@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "VoiceFill – Voice-First Form Filler",
+  "version": "1.0.0",
+  "description": "Fills web forms by voice for blind and low-vision users, using your locally stored profile.",
+  "permissions": ["storage", "activeTab", "scripting", "tts"],
+  "host_permissions": ["https://ai4a11y.lovable.app/*", "<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_popup": "popup.html", "default_title": "VoiceFill: fill this form" },
+  "options_page": "options.html",
+  "commands": {
+    "start-voicefill": {
+      "suggested_key": { "default": "Alt+Shift+F" },
+      "description": "Fill the form on this page by voice"
+    }
+  },
+  "icons": { "48": "icon.png", "128": "icon.png" }
+}
