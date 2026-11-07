@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>VoiceFill – Profile and settings</title>
+<style>
+  body { margin: 0; background: #fff; color: #111; font: 500 20px/1.5 system-ui, sans-serif; }
+  main { max-width: 640px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { color: #1b7a3e; font-size: 34px; margin: 0 0 8px; }
+  h2 { color: #1b7a3e; font-size: 24px; margin: 32px 0 8px; }
+  label { display: block; font-weight: 700; margin-top: 18px; }
+  .hint { font-size: 16px; color: #444; margin: 2px 0 6px; }
+  input, select, textarea { width: 100%; box-sizing: border-box; font: 500 20px system-ui; padding: 12px; border: 3px solid #666; border-radius: 10px; background: #fff; color: #111; }
+  input:focus, select:focus, textarea:focus, button:focus { outline: 4px solid #1b7a3e; outline-offset: 2px; border-color: #1b7a3e; }
+  button { margin-top: 28px; padding: 16px 28px; font: 800 22px system-ui; background: #1b7a3e; color: #fff; border: 0; border-radius: 10px; cursor: pointer; }
+  #status { margin-top: 16px; font-weight: 700; color: #1b7a3e; min-height: 1.5em; }
+  .small { margin-top: 0; padding: 10px 18px; font-size: 18px; white-space: nowrap; }
+  #runTest { margin-top: 12px; }
+  details { margin-top: 20px; border: 3px solid #1b7a3e; border-radius: 10px; padding: 10px 14px; }
+  summary { cursor: pointer; font-weight: 800; color: #1b7a3e; }
+  pre { white-space: pre-wrap; word-break: break-word; background: #f3f7f4; border-radius: 8px; padding: 10px; font-size: 15px; max-height: 320px; overflow: auto; }
+  pre:empty { display: none; }
+  output { font-weight: 800; color: #1b7a3e; }
+</style>
+</head>
+<body>
+<main>
+  <h1>VoiceFill settings</h1>
+  <p>Everything here stays on this computer. The page layout (never your saved profile) is sent to the AI so it can find the form, even when it is built from unusual buttons or boxes.</p>
+  <form id="f">
+    <h2>Your profile</h2>
+    <label for="fullName">Full name</label><input id="fullName" autocomplete="name" />
+    <label for="dateOfBirth">Date of birth</label><input id="dateOfBirth" type="date" autocomplete="bday" />
+    <label for="email">Email</label><input id="email" type="email" autocomplete="email" />
+    <label for="address">Address</label><textarea id="address" rows="3" autocomplete="street-address"></textarea>
+    <label for="phone">Phone</label><input id="phone" type="tel" autocomplete="tel" />
+    <label for="gender">Gender</label>
+    <select id="gender"><option value="">Prefer not to say</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Other</option></select>
+
+    <h2>Voice</h2>
+    <label for="rate">Speaking speed: <output id="rateOut">1.0×</output></label>
+    <input id="rate" type="range" min="0.5" max="2" step="0.1" value="1" />
+
+    <h2>AI access</h2>
+    <label for="token">AI access token</label>
+    <p class="hint" id="tokenHint">Needed to match forms and understand your answers.</p>
+    <div style="display:flex;gap:10px;align-items:stretch">
+      <input id="token" type="password" autocomplete="off" aria-describedby="tokenHint" />
+      <button type="button" id="toggleToken" class="small" aria-pressed="false" aria-controls="token">Show</button>
+    </div>
+    <details id="debug">
+      <summary>Debug: test the AI connection</summary>
+      <label for="testPrompt">Test message</label>
+      <textarea id="testPrompt" rows="3">Reply with JSON: {"ok": true, "message": "hello"}</textarea>
+      <button type="button" id="runTest" class="small">Send test request</button>
+      <p class="hint">Uses the token in the box above, even if not saved yet.</p>
+      <pre id="testOut" role="status" aria-live="polite"></pre>
+    </details>
+
+    <button type="submit">Save settings</button>
+    <div id="status" role="status" aria-live="polite"></div>
+  </form>
+</main>
+<script src="options.js"></script>
+</body>
+</html>
